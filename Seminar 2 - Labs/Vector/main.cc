@@ -7,7 +7,7 @@
 #include <sstream>
 #include <cassert>
 
-//double const pi { std::acos(-1.0) };
+double const pi { std::acos(-1.0) };
 
 using namespace std;
 int main()
@@ -37,16 +37,16 @@ int main()
   assert( v1.length() == 5.0 );
 
   // check output stream operator
-  // {
-  //   ostringstream oss { };
-  //   assert( oss << e1 );
-  //   assert( oss.str() == "(1, 0)");
-  // }
-  // {
-  //   ostringstream oss { };
-  //   assert( oss << 0.5 * e1 + 1.5 * e2 );
-  //   assert( oss.str() == "(0.5, 1.5)" );
-  // }
+  {
+     ostringstream oss { };
+     assert( oss << e1 );
+     assert( oss.str() == "(1, 0)");
+  }
+  {
+    ostringstream oss { };
+    assert( oss << 0.5 * e1 + 1.5 * e2 );
+    assert( oss.str() == "(0.5, 1.5)" );
+  }
 
   // // check input stream operator
   // {

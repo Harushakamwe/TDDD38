@@ -5,6 +5,7 @@
 #include <iostream>
 
 // Declare your class here
+// Class Vector takes in two doubles to create a 2-dim mathematical vector
 class Vector {
 
 
@@ -41,7 +42,7 @@ bool operator==(Vector v, Vector w);
 
 bool operator!=(Vector v, Vector w);
 
-std::ostream& operator<<(std::ostream& out, Vector& v);
+std::ostream& operator<<(std::ostream& out, Vector v);
 
 std::istream& operator>>(std::istream& in, std::string string);
 

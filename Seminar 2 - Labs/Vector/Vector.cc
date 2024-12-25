@@ -4,9 +4,8 @@
 
 // Konstruktorer
 
-Vector::Vector() {
-    this->x = 0.0;
-    this->y = 0.0;
+Vector::Vector() : x{0.0}, y{0.0}
+{
 }
 
 Vector::Vector(double a, double b) : x(a), y(b)
@@ -83,17 +82,16 @@ Vector operator*(double n, Vector v){
 
 
 bool operator==(Vector v, Vector w){
-    return (v.getX() == w.getX()) && (v.getY() == v.getX());
+    return (v.getX() == w.getX()) && (v.getY() == w.getY());
 }
 
 bool operator!=(Vector v, Vector w){
     return !(v==w);
 }
 
-// bool operator<(Vector v, Vector w){}
+std::ostream& operator<<(std::ostream& out, Vector& const v)
+{
+    return out << "(" << v.getX() << ", " << v.getY() << ")";
+}
 
-// bool operator>(Vector v, Vector w){}
-
-std::ostream& operator<<(std::ostream& out, Vector const v){}
-
-std::istream& operator>>(std::istream& in, std::string const string){}
+// std::istream& operator>>(std::istream& in, std::string const string){}
