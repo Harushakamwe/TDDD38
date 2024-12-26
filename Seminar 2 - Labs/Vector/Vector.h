@@ -23,8 +23,8 @@ class Vector {
         Vector& operator*=(double factor);
         Vector& operator/=(double factor);
         bool operator==(Vector const & rhs) const;
-        std::ostream& operator<<(std::ostream& out) const;
-        //Vector& operator>>(std::istream& in);
+        friend std::ostream& operator<<(std::ostream& out, Vector &v);
+        friend std::istream& operator>>(std::istream& in, Vector &v);
 };
 
 //double dotProduct(Vector v, Vector w);
@@ -43,8 +43,5 @@ Vector operator*(double n, Vector v);
 
 bool operator!=(Vector const & v, Vector const & w);
 
-std::ostream& operator<<(std::ostream& out, Vector const &v);
-
-bool operator>>(std::istream& in, Vector& v);
 
 #endif

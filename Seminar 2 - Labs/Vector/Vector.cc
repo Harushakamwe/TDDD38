@@ -90,58 +90,46 @@ bool operator!=(Vector const & v, Vector const & w){
     return !(v==w);
 }
 
-std::ostream& Vector::operator<<(std::ostream& out) const
+std::ostream& operator<<(std::ostream& out, Vector &v)
 {
-    int x = static_cast<int> (this->x);
-    int y = static_cast<int> (this->y);
-    if (this->x - x == 0.0 && this->y - y == 0.0)
+    int x = static_cast<int> (v.x);
+    int y = static_cast<int> (v.y);
+    if (v.x - x == 0.0 && v.y - y == 0.0)
     {
         return out << "(" << x << ", " << y << ")";
     }
     else
     {
-        return out << "(" << this->x << ", " << this->y << ")";
+        return out << "(" << v.x << ", " << v.y << ")";
     }
         
 }
 
-std::ostream& operator<<(std::ostream& out, Vector const &v)
+std::istream& operator>>(std::istream& in, Vector &v)
 {
-    return v.operator<<(out);
-        
-}
-//Vector& Vector::operator>>(std::istream& in)
-
-bool operator>>(std::istream& in, Vector& v)
-{
-    std::cout << "In operator>>" << std::endl;
-    std::string str{};
-    std::getline(in >> std::ws, str);
-    std::cout << str << std::endl;
-    if (in.fail())
+    Vector tmp;
+    in >> std::ws;
+    if (in.peek() == ('('))
     {
-        std::cout << "Wrong format for input to Vector." << std::endl;
-        return false; 
+        if(in.ignore(1) >> std::ws >> tmp.x >> std::ws)
+        {
+            if (in.peek() == ',')
+            {
+                if(in.ignore(1) >> std::ws >> tmp.y >> std::ws)
+                {
+                    if (in.peek() == ')')
+                    {
+                        in.ignore(1);
+                        v = tmp;
+                        return in;
+                    }
+                    
+                }
+            }
+        }
     }
 
-    std::getline(in, str, ',');
-    std::cout << str << std::endl;
-    if (in.fail())
-    {
-        std::cout << "Wrong format for input to Vector." << std::endl;
-        return false; 
-    }
+    in.setstate(std::ios::failbit);
+    return in;
 
-    std::getline(in, str, ')');
-    std::cout << str << std::endl;
-    if (in.fail())
-    {
-        std::cout << "Wrong format for input to Vector." << std::endl;
-        return false; 
-    }
-
-    return true;
-    
-    //std::cout << str << std::endl;
-    //return in;
 }
