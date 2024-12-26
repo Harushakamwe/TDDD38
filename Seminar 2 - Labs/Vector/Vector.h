@@ -17,18 +17,21 @@ class Vector {
         Vector();
         Vector(double a, double b);
         
-        double length();
-        void setX(double x);
-        void setY(double y);
-        double getX();
-        double getY();
+        double length() const;
+        Vector& operator+=(Vector const & rhs);
+        Vector& operator-=(Vector const & rhs);
+        Vector& operator*=(double factor);
+        Vector& operator/=(double factor);
+        bool operator==(Vector const & rhs) const;
+        std::ostream& operator<<(std::ostream& out) const;
+        //Vector& operator>>(std::istream& in);
 };
 
 //double dotProduct(Vector v, Vector w);
 
-Vector operator+(Vector v, Vector w);
+Vector operator+(Vector v, Vector const & w);
 
-Vector operator-(Vector v, Vector w);
+Vector operator-(Vector v, Vector const & w);
 
 Vector operator-(Vector v);
 
@@ -38,12 +41,10 @@ Vector operator/(Vector v, double n);
 
 Vector operator*(double n, Vector v);
 
-bool operator==(Vector v, Vector w);
+bool operator!=(Vector const & v, Vector const & w);
 
-bool operator!=(Vector v, Vector w);
+std::ostream& operator<<(std::ostream& out, Vector const &v);
 
-std::ostream& operator<<(std::ostream& out, Vector v);
-
-std::istream& operator>>(std::istream& in, std::string string);
+bool operator>>(std::istream& in, Vector& v);
 
 #endif

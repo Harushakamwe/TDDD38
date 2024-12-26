@@ -37,6 +37,7 @@ int main()
   assert( v1.length() == 5.0 );
 
   // check output stream operator
+  
   {
      ostringstream oss { };
      assert( oss << e1 );
@@ -49,12 +50,13 @@ int main()
   }
 
   // // check input stream operator
-  // {
-  //   istringstream iss { "(0.25, 0.125)" };
-  //   Vector v { };
-  //   assert( iss >> v );
-  //   assert( (v == Vector { 0.25, 0.125 }) );
-  // }
+  /*
+  {
+    istringstream iss { "(0.25, 0.125)" };
+    Vector v { };
+    assert( iss >> v );
+    assert( (v == Vector { 0.25, 0.125 }) );
+  }*/
   // { // check that we can read multiple values with arbitrary
   //   // whitespaces between each component
   //   istringstream iss { "( 1, 0)      (    2,     0 )       (   3.00000,   0.000 ) " };
@@ -65,12 +67,14 @@ int main()
   //     assert( (v == Vector { i + 1.0, 0 }) ); 
   //   }
   // }
-  // { // check that the stream operator checks for the parenthesis
-  //   istringstream iss { "(1, 0" };
-  //   Vector v { };
-  //   assert( !(iss >> v) );
-  //   assert( v == Vector { } );
-  // }
+
+  { // check that the stream operator checks for the parenthesis
+    istringstream iss { "(1, 0" };
+    Vector v { };
+    assert( !(iss >> v) );
+    assert( v == Vector { } );
+  }
+  
   // { // check for error
   //   istringstream iss { "1 0" };
   //   Vector v { };
