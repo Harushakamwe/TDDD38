@@ -1,0 +1,36 @@
+Problem 3: 
+Discussion: What does the the virtual keyword do, and what reason do you see for C++
+forcing you to explicitly mark functions as virtual instead of making all functions virtual
+by default? Make sure that you explain any costs that you mention.
+
+Answer: 
+The keyword virtual is used to declare a member function as virtual, enabling dynamic dispatch (meaning run-time polymorphism) for that function.
+
+This means that the virtual function is allowed to be overriden in a derived class and ensures that the correct class is called at runtime,
+even if the call is made through a base class pointer or reference. Every object that uses virtual functions use a vtable as lookup table that
+stores addresses of virtual functions for an objects class. 
+
+If all functions are virtual then there will be extra overhead since the table will need to be
+consulted first, every time a function is called. There will be extra indirection. Making all functions non-virtual as default also simplifies the 
+interpretation and analysis of the class and its polymorphic properties, it is easier to see why a function is supposed to be overriden in certain derived classes.
+
+There are memory costs from the extra vtables and also performance costs since the indirect function call is slower since it requires looking up the address of the
+function in the vtable at runtime.
+
+Problem 4:
+Discussion: What different explicit type casts are there in C++? Describe at least three
+of them. Discuss what each cast does and how they differ from each other. Discuss why
+you think the casts where separated into different operations rather than just using C-style
+casts.
+
+Answer:
+There are four explicit type casts.
+    1. static_cast: Is used for conversions between related time. Evaluated at compile time. Compared to C-style casts, this one is much clearer.
+    2. dynamic_cast: Is used for run-time type checking and is specifically used for safe downcasting or cross-casting in class hierarchies with polymorphic types.
+    Downcasting means converting from a base class to a derived class. Cross-casting is when casting between siblings in a polymorphic hierarchy.
+    3. const_cast: Is used to add or remove const qualifiers from a type. It is the only cast that allows modification of constness of an object. It provides a way to
+    alter constness safely and intentionally.
+    4. reinterpret_cast: Simply reinterprets an object of a certain type in to another type without any regards to the original type or even if its a safe operation.
+
+C-style casts use combinations of these casts which can lead to ambiguity and unintended behaviour. Explicit casts removes ambiguity and makes the intent of the cast
+clear. This separation leads to more maintainable code and also allows the compiler to give clear error messages.

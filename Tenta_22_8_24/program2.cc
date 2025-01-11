@@ -6,6 +6,55 @@
 #include <vector>
 #include <deque>
 
+template <typename T>
+T& negate(T& value);
+
+namespace details
+{
+    
+    void negate(bool& value, int, int)
+    {
+        value = !value;
+    } 
+
+    template <typename T>
+    auto negate(T& value, int, int) -> std::enable_if_t<std::is_signed<T>::value>
+    {
+        value = -value;
+    } 
+
+    template <typename T>
+    auto negate(T& str, int, int) -> std::enable_if_t<std::is_same<typename T::value_type, char>::value>
+    {
+        std::reverse(std::begin(str), std::end(str));
+    } 
+
+    template <typename Container>
+    auto negate(Container& cont, int, float) -> decltype(std::begin(cont), std::declval<void>())
+    {
+        for (auto&& element : cont)
+        {
+            ::negate(element);
+        } 
+    } 
+
+    template<typename T>
+    void negate(T& value, float, float)
+    {
+        value =~value;  
+    } 
+}
+
+
+template <typename T>
+T& negate(T& value)
+{
+    details::negate(value, 0, 0);
+    return value;
+}
+
+
+
 int main()
 {
     // signed value
