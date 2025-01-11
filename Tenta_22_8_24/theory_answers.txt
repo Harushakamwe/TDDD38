@@ -34,3 +34,15 @@ There are four explicit type casts.
 
 C-style casts use combinations of these casts which can lead to ambiguity and unintended behaviour. Explicit casts removes ambiguity and makes the intent of the cast
 clear. This separation leads to more maintainable code and also allows the compiler to give clear error messages.
+
+Problem 6:
+Discussion: What is the difference between using parentheses when initializing a variable,
+and using curly braces? Give a list of what steps each initialization tries. Are there any
+other differences that are not covered by the steps?
+
+Answer:
+Curly brackets initialization searches first for an initializer list that matches the arguments.
+This is called list initialization. Notably, with the list initializer, narrowing conversions are prohibited
+If it doesn't find a list initializer it tries to call an appropriate constructor
+
+With parentheses

@@ -1,8 +1,10 @@
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 #include <utility>
 #include <vector>
+#include <numeric>
 
 using Task = std::pair<int, int>;
 
@@ -37,13 +39,13 @@ void write(std::ostream& os, Task const& task)
 
 namespace std{
 
-    istream& operator>>(istream& is, Task& task)
+    std::istream& operator>>(istream& is, Task& task)
     {
         read(is, task);
         return is;
     } 
 
-    ostream& operator>>(ostream& os, Task& task)
+    std::ostream& operator<<(ostream& os, Task const& task)
     {
         write(os, task);
         return os;
@@ -56,6 +58,21 @@ int main(){
 
     // Vector to be sorted.
     std::vector<Task> tasks{std::istream_iterator<Task>{ifs}, std::istream_iterator<Task>{}};
+
+    std::sort(std::begin(tasks), std::end(tasks));
+
+    std::partial_sum(std::begin(tasks), std::end(tasks), std::begin(tasks), merge_or_split);
+
+    std::sort(std::begin(tasks), std::end(tasks), 
+            [] (Task const& a, Task const& b)
+            { return std::tie(a.first, b.second) < std::tie(b.first, a.second); });
+
+    tasks.erase(std::unique(std::begin(tasks), std::end(tasks),
+                            [] (Task const& a, Task const& b)
+                            { return a.first == b.first;}),
+                            std::end(tasks));
+
+    std::copy(std::begin(tasks), std::end(tasks), std::ostream_iterator<Task> {std::cout, "\n"});
 
 }
 
