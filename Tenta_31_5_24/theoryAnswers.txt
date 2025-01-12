@@ -1,0 +1,49 @@
+Problem 3.
+Discussion: Explain what an xvalue is. When does it arise? Give examples. Discuss why
+xvalues were introduced to the language. How does the classification of xvalues help us
+produce higher quality code?
+
+Answer:
+xvalue stands for Expiring value and denotes an object that has an identity but soon wont,
+or at least shouldn't. These occur when a named object is explicitly cast or designated to
+be movable, such as with std::move() or when an rvalue is passed to a function wherein 
+which it will have an identity. These were introduced to enable move semantics and perfect
+forwarding. There is a clear intent when writing code when xvalues are used. xvalues also
+save time from expensive copy operations. There are also safer overloads and perfect
+forwarding. We also get better error messages.
+
+Problem 5.
+Discussion: Why is it important to use the member initialization list in constructors? Give
+an example where it is absolutely necessary to initialize data members using the member
+initialization list. Give another example where the order of initialization in the member
+initialization list matters.
+
+Answer:
+Const data members and references must be fully initialized before the constructor body.
+Assigning them in the constructor body requires re-assignment. Member initialization also
+avoids narrowing conversions.
+A case where the order of init matters is when members depend on each other. If member a
+declared before member b, but b is assigned to say a+10 in the list and then a is assigned
+5, this will lead to unintended behaviour in b since a will be initiated first anyway.
+
+Problem 6.
+Discussion: Explain what overload resolution is. Your explanation must describe how
+overload resolution deals with multiple functions of the same name. In what order does
+the compiler prioritize candidate functions? Does the data type of parameters matter?
+Does the data type of return types matter? Does templates parameters matter? How does
+implicit type conversion plays into it?
+
+Answer:
+Overload resolution is when the compiler decides which function among a set of functions
+with the same name, to call.
+The function calls can differ with respect to the number of parameters, the types of
+parameters, cv qualifiers and types and number of template parameters.
+When ranking, exact matches are prefered in terms of the parameter counts and types.
+I.e if a call to Func(int a, float b), should ideally be made with int x, float y
+Func(x,y);
+If this is not possible, the compiler will use some conversion, either user defined or
+standard conversions.
+Next it will try promoting or narrowing the parameters, e.g float to double.
+Non-template is preferred to template functions.
+If two overloads are found equally good, the call is ambiguous and a compile-time error is
+raised.
