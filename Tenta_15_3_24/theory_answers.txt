@@ -1,0 +1,22 @@
+Problem 2:
+Discussion: What is placement new? How is it different from new? When should it be
+used.
+
+Answer:
+Placement new is a specialized version of new that constructs an object in 
+preallocated memory rather than dynamically allocating memory. It is used 
+when we want to control where an object is created.
+
+Problem 4:
+Discussion: Suppose we are iterating a container and whenever we find the value 0 we
+insert another 0 at the beginning of the container, and insert 1 at the end. Name two con-
+tainers that can be used to do this in-place (i.e. by directly modifying the container rather
+than copying to a new one) without moving the previously existing elements in memory.
+Explain why your chosen containers work, and explain why std::vector does not work.
+It might be useful to look at this page: https://en.cppreference.com/w/cpp/container
+
+Answer:
+Deque and list (doubly linked list) can be used. These containers have pointers to first and
+last objects and inserting new objects don't affect the memory location of the existing objects.
+Vector doesn't work since it dynamically allocates memory to handle its element. When inserting
+to the front, it shifts all the elements, which means they are moved in memory.

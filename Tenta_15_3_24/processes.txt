@@ -1,0 +1,20 @@
+Data Analysis Tool: network disk
+Web Browser: network
+Print Manager: printer network
+Input Handler: keyboard
+File Management Tool: disk USB
+Image Processing: GPU display
+Video Streaming: network display speakers
+Print Driver Service: printer
+Photo Viewer: display
+Database Management System: network disk
+Scientific Computation Module: GPU
+Text Editor: keyboard display
+Network Scanning Tool: network USB
+Audio Playback: speakers
+System Update Service: network GPU USB
+Document Conversion Tool: printer display
+Disk Cleaning Utility: disk
+Graphic Design Software: GPU display
+Simulation Engine: GPU
+E-Mail Client: network
